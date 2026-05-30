@@ -23,18 +23,18 @@ function Ensure-Label {
 
 function Ensure-Milestone {
     param([string]$Title, [string]$Description)
-    $existing = gh api "repos/{owner}/{repo}/milestones" --jq ".[] | select(.title==`"$Title`") | .number" 2>$null
+    $milestones = gh api "repos/{owner}/{repo}/milestones" | ConvertFrom-Json
+    $existing = ($milestones | Where-Object { $_.title -eq $Title }).number
     if ($existing) {
         Write-Host "Milestone already exists: $Title (#$existing)"
         return [int]$existing
     }
-    $number = gh api -X POST "repos/{owner}/{repo}/milestones" `
+    $created = gh api -X POST "repos/{owner}/{repo}/milestones" `
         -f title="$Title" `
         -f description="$Description" `
-        -f state="open" `
-        --jq ".number"
-    Write-Host "Created milestone: $Title (#$number)"
-    return [int]$number
+        -f state="open" | ConvertFrom-Json
+    Write-Host "Created milestone: $Title (#$($created.number))"
+    return [int]$created.number
 }
 
 Ensure-Label "infrastructure" "0E8A16" "Repository setup, tooling, and CI/CD"
