@@ -1,0 +1,39 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Flask
+instance/
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Packaging
+dist/
+build/
+*.egg-info/
+
+# IDE / editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
