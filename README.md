@@ -49,19 +49,31 @@ pip install -r requirements-dev.txt
 
 This project uses Ruff for linting and formatting.
 
-Run the lint workflow:
+### Check for linting violations
 
 ```bash
 make lint
 ```
 
-If `make` is not available, run the equivalent Ruff command directly:
+Or directly with Ruff:
 
 ```bash
 ruff check .
 ```
 
-To verify formatting without modifying files:
+### Auto-fix formatting issues
+
+```bash
+make format
+```
+
+Or directly with Ruff:
+
+```bash
+ruff format .
+```
+
+### Verify formatting without modifying files
 
 ```bash
 ruff format --check .
