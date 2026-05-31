@@ -1,4 +1,4 @@
 [tool.ruff]
 line-length = 88
 target-version = "py311"
-select = ["E", "F", "I", "C", "B", "UP"]
+lint.select = ["E", "F", "I", "C", "B", "UP"]
