@@ -45,6 +45,28 @@ For development (tests and linting):
 pip install -r requirements-dev.txt
 ```
 
+## Linting and formatting
+
+This project uses Ruff for linting and formatting.
+
+Run the lint workflow:
+
+```bash
+make lint
+```
+
+If `make` is not available, run the equivalent Ruff command directly:
+
+```bash
+ruff check .
+```
+
+To verify formatting without modifying files:
+
+```bash
+ruff format --check .
+```
+
 ### 4. Configure environment variables (optional)
 
 Copy the example file and adjust values for local development:
