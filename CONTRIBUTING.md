@@ -42,11 +42,12 @@ requesting review.
 
 ## PR Checklist
 
-- Tests pass locally.
-- Linting passes locally.
-- Formatting passes locally.
-- No secrets or environment-specific files are committed.
-- The change is described clearly in the PR body.
+- [ ] `pytest` passes locally.
+- [ ] `ruff check .` passes locally.
+- [ ] `ruff format --check .` passes locally.
+- [ ] No secrets or environment-specific files are committed.
+- [ ] The PR description explains what changed and why.
+- [ ] The PR is linked to the relevant issue when applicable.
 
 ## Notes
 
