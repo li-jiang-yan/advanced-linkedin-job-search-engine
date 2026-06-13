@@ -1,5 +1,7 @@
 # Advanced LinkedIn Job Search Engine
 
+[![CI](https://github.com/li-jiang-yan/advanced-linkedin-job-search-engine/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/li-jiang-yan/advanced-linkedin-job-search-engine/actions/workflows/ci.yml)
+
 An advanced engine to search for jobs on LinkedIn where users can better filter and sort search results.
 
 ## Prerequisites
