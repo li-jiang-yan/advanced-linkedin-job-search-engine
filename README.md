@@ -79,6 +79,21 @@ ruff format .
 ruff format --check .
 ```
 
+## Testing
+
+With the virtual environment activated and development dependencies installed,
+run the test suite locally with:
+
+```bash
+pytest
+```
+
+To include coverage reporting, run:
+
+```bash
+pytest --cov
+```
+
 ### 4. Configure environment variables (optional)
 
 Copy the example file and adjust values for local development:
