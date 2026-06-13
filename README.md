@@ -143,6 +143,12 @@ make format
 make format-check
 ```
 
+## Planned Work
+
+The current roadmap and open tasks are tracked in the GitHub Issues list:
+
+https://github.com/li-jiang-yan/advanced-linkedin-job-search-engine/issues
+
 ### 4. Configure environment variables (optional)
 
 Copy the example file and adjust values for local development:
