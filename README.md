@@ -2,11 +2,17 @@
 
 [![CI](https://github.com/li-jiang-yan/advanced-linkedin-job-search-engine/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/li-jiang-yan/advanced-linkedin-job-search-engine/actions/workflows/ci.yml)
 
-An advanced engine to search for jobs on LinkedIn where users can better filter and sort search results.
+## Project Overview
+
+Advanced LinkedIn Job Search Engine is a Flask application for searching LinkedIn
+job listings with a cleaner workflow and a structure that makes it easier to add
+filters, sorting, and other search improvements over time.
 
 ## Prerequisites
 
-- **Python 3.11 or newer** (developed and tested with Python 3.11)
+- **Python 3.11 or newer**. The project is developed and tested with Python 3.11.
+- **Git**
+- **pip**
 
 ## Setup
 
@@ -46,6 +52,18 @@ For development (tests and linting):
 ```bash
 pip install -r requirements-dev.txt
 ```
+
+## Running the App
+
+With the virtual environment activated:
+
+```bash
+flask --app app run
+```
+
+Open http://127.0.0.1:5000/ in your browser.
+
+Health check: http://127.0.0.1:5000/health
 
 ## Linting and formatting
 
@@ -96,6 +114,35 @@ To include coverage reporting, run:
 pytest --cov
 ```
 
+## Quick Reference
+
+### Install
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+### Run
+
+```bash
+flask --app app run
+```
+
+### Test
+
+```bash
+pytest
+pytest --cov
+```
+
+### Lint
+
+```bash
+make lint
+make format
+make format-check
+```
+
 ### 4. Configure environment variables (optional)
 
 Copy the example file and adjust values for local development:
@@ -113,15 +160,3 @@ cp .env.example .env
 ```
 
 See `.env.example` for available variables.
-
-## Running the app
-
-With the virtual environment activated:
-
-```bash
-flask --app app run
-```
-
-Open http://127.0.0.1:5000/ in your browser.
-
-Health check: http://127.0.0.1:5000/health
