@@ -1,6 +1,18 @@
 # Makefile for common development tasks
 
-.PHONY: lint format format-check check
+.PHONY: install run test test-cov lint format format-check check
+
+install:
+	pip install -r requirements-dev.txt
+
+run:
+	flask --app app run
+
+test:
+	pytest
+
+test-cov:
+	pytest --cov
 
 lint:
 	ruff check .
@@ -11,4 +23,4 @@ format:
 format-check:
 	ruff format --check .
 
-check: lint format-check
+check: lint format-check test
