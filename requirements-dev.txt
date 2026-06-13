@@ -4,6 +4,7 @@
 # Testing
 pytest==9.0.2
 pytest-cov==7.1.0
+pre-commit
 
 # Linting and formatting
 ruff==0.15.15
