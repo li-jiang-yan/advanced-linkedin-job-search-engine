@@ -13,10 +13,6 @@ class PostsSpider(scrapy.Spider):
         yield scrapy.Request(self.start_url, callback=self.parse)
 
     def parse(self, response):
-        item = {
-            "url": response.url,
-            "status": response.status,
-            "body": response.body
-        }
+        item = {"url": response.url, "status": response.status, "body": response.body}
         self.items.append(item)
         yield item
