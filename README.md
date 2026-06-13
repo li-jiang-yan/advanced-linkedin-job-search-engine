@@ -53,6 +53,12 @@ For development (tests and linting):
 pip install -r requirements-dev.txt
 ```
 
+To enable automatic checks before each commit:
+
+```bash
+pre-commit install
+```
+
 ## Running the App
 
 With the virtual environment activated:
@@ -114,6 +120,22 @@ To include coverage reporting, run:
 pytest --cov
 ```
 
+## Pre-commit Hooks
+
+This repository uses pre-commit to run Ruff and pytest before each commit.
+
+Install the hook once after installing the development dependencies:
+
+```bash
+pre-commit install
+```
+
+Run the hooks against all files whenever you want a full local check:
+
+```bash
+pre-commit run --all-files
+```
+
 ## Quick Reference
 
 ### Install
@@ -141,6 +163,13 @@ pytest --cov
 make lint
 make format
 make format-check
+```
+
+### Hooks
+
+```bash
+pre-commit install
+pre-commit run --all-files
 ```
 
 ## Planned Work

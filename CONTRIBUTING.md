@@ -37,6 +37,13 @@ ruff format --check .
 pytest --cov
 ```
 
+If you want those checks to run automatically before each commit, install the
+repository's pre-commit hook:
+
+```bash
+pre-commit install
+```
+
 If you are working on a new feature or fix, make sure the checks pass before
 requesting review.
 
