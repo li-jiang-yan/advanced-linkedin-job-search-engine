@@ -8,7 +8,7 @@
 
   <div class="container my-3">
     <h1>Advanced LinkedIn Job Search Engine</h1>
-    <form>
+    <form action="{{ url_for('main.search') }}" method="GET">
       <div class="mb-3">
         <label for="jobs-search-box-keyword-id" class="form-label">
           <span class="visually-hidden">
@@ -17,6 +17,7 @@
         </label>
         <input
           type="text"
+          name="keywords"
           class="form-control"
           id="jobs-search-box-keyword-id"
           placeholder="Title, skill or company">
@@ -29,6 +30,7 @@
         </label>
         <input
           type="text"
+          name="location"
           class="form-control"
           id="jobs-search-box-location-id"
           placeholder="City, state, or zip code">
@@ -41,6 +43,7 @@
         </label>
         <input
           type="number"
+          name="number"
           class="form-control"
           id="jobs-search-box-number-id"
           aria-describedby="numberHelp"
