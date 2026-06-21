@@ -14,7 +14,7 @@ main = Blueprint("main", __name__)
 @main.route("/")
 def hello():
     """Return a simple hello page."""
-    return render_template("index.html")
+    return _render_index([])
 
 
 @main.route("/health")
@@ -26,4 +26,15 @@ def health():
 @main.route("/search", methods=["GET"])
 def search():
     """Search for jobs with the LinkedIn API"""
-    return search_jobs(request)
+    query_params = request.args.to_dict(flat=True)
+    jobs = search_jobs(query_params)
+    return _render_index(jobs, query_params)
+
+
+def _render_index(jobs, query_params=None):
+    """Render the search page with a consistent template context."""
+    return render_template(
+        "index.html",
+        jobs=jobs,
+        query=query_params or {},
+    )
