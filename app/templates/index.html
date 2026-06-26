@@ -8,7 +8,10 @@
 
   <div class="container my-3">
     <h1>Advanced LinkedIn Job Search Engine</h1>
-    <form action="{{ url_for('main.search') }}" method="GET">
+    <form
+      action="{{ url_for('main.search') }}"
+      method="GET"
+      class="mb-3">
       <div class="mb-3">
         <label for="jobs-search-box-keyword-id" class="form-label">
           <span class="visually-hidden">
@@ -20,7 +23,8 @@
           name="keywords"
           class="form-control"
           id="jobs-search-box-keyword-id"
-          placeholder="Title, skill or company">
+          placeholder="Title, skill or company"
+          value="{{ request.args.get('keywords', '') }}">
       </div>
       <div class="mb-3">
         <label for="jobs-search-box-location-id" class="form-label">
@@ -33,7 +37,8 @@
           name="location"
           class="form-control"
           id="jobs-search-box-location-id"
-          placeholder="City, state, or zip code">
+          placeholder="City, state, or zip code"
+          value="{{ request.args.get('location', '') }}">
       </div>
       <div class="mb-3">
         <label for="jobs-search-box-number-id" class="form-label">
@@ -48,7 +53,7 @@
           id="jobs-search-box-number-id"
           aria-describedby="numberHelp"
           placeholder="Number of searches"
-          value="25"
+          value="{{ request.args.get('number', '25') }}"
           min="1">
         <div id="numberHelp" class="form-text">
           More time is needed to get and analyze more searches.
@@ -56,6 +61,27 @@
       </div>
       <button type="submit" class="btn btn-primary">Search</button>
     </form>
+    <div
+      class="mb-3"
+      id="results">
+      {% for job in jobs %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="card-title">
+              <a href="{{ job.link }}">
+                <strong>{{ job.title }}</strong>
+              </a>
+            </div>
+            <div class="card-subtitle mb-2 text-muted">
+              <strong>{{ job.company }}</strong>
+            </div>
+            <div class="card-text">
+              <strong>Date posted:</strong> {{ job.date_posted }}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
