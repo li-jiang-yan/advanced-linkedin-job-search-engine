@@ -1,5 +1,7 @@
 """Search helpers for LinkedIn job listings."""
 
+import json
+import re
 from urllib.parse import urlencode
 
 import requests
@@ -29,11 +31,10 @@ def search_jobs(params):
         response.raise_for_status()
 
         soup = BeautifulSoup(response.text, "html.parser")
-        jobs.extend(
-            _parse_job_html(element)
-            for element in soup.find_all("li")
-            if _parse_job_html(element)
-        )
+        for element in soup.find_all("li"):
+            job = _parse_job_html(element)
+            if job:
+                jobs.append(job)
         start += len(soup.find_all("li"))
 
     return jobs
@@ -47,18 +48,32 @@ def _build_search_url(query_string, start):
 
 def _parse_job_html(soup):
     try:
+        result = {}
+
+        # Extract info from input soup
         link_el = soup.select_one(".base-card__full-link").get("href")
-        title_el = soup.select_one(".base-search-card__title").get_text().strip()
-        company_el = soup.select_one(".base-search-card__subtitle").get_text().strip()
-        location_el = soup.select_one(".job-search-card__location").get_text().strip()
-        date_el = soup.select_one(".job-search-card__listdate").get("datetime")
+        result["link"] = link_el
+
+        # Extract info from soup obtained from link_el
+        response = requests.get(link_el, headers=DEFAULT_HEADERS, timeout=30)
+        soup = BeautifulSoup(response.text, "html.parser")
+        result.update(
+            json.loads(soup.find("script", {"type": "application/ld+json"}).string)
+        )
+        criteria = {
+            item.select_one(".description__job-criteria-subheader")
+            .get_text()
+            .strip()
+            .lower(): item.select_one(".description__job-criteria-text")
+            .get_text()
+            .strip()
+            for item in soup.select(".description__job-criteria-item")
+        }
+        result["seniority"] = criteria["seniority level"]
+        result["function"] = criteria["job function"]
+        result["industry"] = re.split(r",(?=\S)", result["industry"])
+
     except Exception as _:
         return None
     else:
-        return {
-            "link": link_el,
-            "title": title_el,
-            "company": company_el,
-            "location": location_el,
-            "date_posted": date_el,
-        }
+        return result
