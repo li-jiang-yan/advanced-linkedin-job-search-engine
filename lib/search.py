@@ -1,4 +1,4 @@
-﻿"""Search helpers for LinkedIn job listings."""
+"""Search helpers for LinkedIn job listings."""
 
 import html
 import json
@@ -37,9 +37,7 @@ _BOILERPLATE_PHRASES = (
     "key responsibilities",
 )
 
-_WORD_FIXES = (
-    (r"\bdisterent\b", "different"),
-)
+_WORD_FIXES = ((r"\bdisterent\b", "different"),)
 
 
 def search_jobs(params):
@@ -127,9 +125,11 @@ def _clean_description(description):
     text = text.replace("\xa0", " ")
     text = re.sub(r"[\r\n\t]+", " ", text)
 
-    boilerplate_pattern = r"\b(?:" + "|".join(
-        re.escape(phrase) for phrase in _BOILERPLATE_PHRASES
-    ) + r")\b[:\s-]*"
+    boilerplate_pattern = (
+        r"\b(?:"
+        + "|".join(re.escape(phrase) for phrase in _BOILERPLATE_PHRASES)
+        + r")\b[:\s-]*"
+    )
     text = re.sub(boilerplate_pattern, " ", text, flags=re.IGNORECASE)
     text = re.sub(r"[^0-9A-Za-z\s']", " ", text)
     for pattern, replacement in _WORD_FIXES:
