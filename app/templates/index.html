@@ -73,10 +73,22 @@
               </a>
             </div>
             <div class="card-subtitle mb-2 text-muted">
-              <strong>{{ job.company }}</strong>
+              <strong>{{ job.hiringOrganization.name }}</strong>
             </div>
             <div class="card-text">
-              <strong>Date posted:</strong> {{ job.date_posted }}
+              <strong>Date posted:</strong> {{ job.datePosted }}
+            </div>
+            <div class="card-text">
+              <strong>Seniority level:</strong> {{ job.seniority }}
+            </div>
+            <div class="card-text">
+              <strong>Employment type:</strong> {{ job.employmentType }}
+            </div>
+            <div class="card-text">
+              <strong>Job function:</strong> {{ job.function }}
+            </div>
+            <div class="card-text">
+              <strong>Industries:</strong> {{ job.industry }}
             </div>
           </div>
         </div>
