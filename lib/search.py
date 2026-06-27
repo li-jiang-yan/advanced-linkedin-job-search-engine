@@ -1,7 +1,9 @@
-"""Search helpers for LinkedIn job listings."""
+﻿"""Search helpers for LinkedIn job listings."""
 
+import html
 import json
 import re
+import unicodedata
 from urllib.parse import urlencode
 
 import requests
@@ -15,6 +17,29 @@ DEFAULT_HEADERS = {
     "User-Agent": "Mozilla/5.0",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
+
+_BOILERPLATE_PHRASES = (
+    "summary",
+    "description",
+    "job description",
+    "role description",
+    "job overview",
+    "about the team",
+    "what the role is",
+    "what you will be working on",
+    "what we are looking for",
+    "responsibilities",
+    "requirements",
+    "minimum qualifications",
+    "preferred qualifications",
+    "must have",
+    "nice to have",
+    "key responsibilities",
+)
+
+_WORD_FIXES = (
+    (r"\bdisterent\b", "different"),
+)
 
 
 def search_jobs(params):
@@ -72,8 +97,56 @@ def _parse_job_html(soup):
         result["seniority"] = criteria["seniority level"]
         result["function"] = criteria["job function"]
         result["industry"] = re.split(r",(?=\S)", result["industry"])
-
+        result["description"] = _clean_description(result["description"])
     except Exception as _:
         return None
     else:
         return result
+
+
+def _clean_description(description):
+    if not description:
+        return ""
+
+    text = html.unescape(str(description))
+    text = BeautifulSoup(text, "html.parser").get_text(" ")
+    text = _repair_mojibake(text)
+    text = unicodedata.normalize("NFKC", text)
+    text = text.translate(
+        str.maketrans(
+            {
+                "\u2018": "'",
+                "\u2019": "'",
+                "\u201c": '"',
+                "\u201d": '"',
+                "\u2013": "-",
+                "\u2014": "-",
+            }
+        )
+    )
+    text = text.replace("\xa0", " ")
+    text = re.sub(r"[\r\n\t]+", " ", text)
+
+    boilerplate_pattern = r"\b(?:" + "|".join(
+        re.escape(phrase) for phrase in _BOILERPLATE_PHRASES
+    ) + r")\b[:\s-]*"
+    text = re.sub(boilerplate_pattern, " ", text, flags=re.IGNORECASE)
+    text = re.sub(r"[^0-9A-Za-z\s']", " ", text)
+    for pattern, replacement in _WORD_FIXES:
+        text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text.lower()
+
+
+def _repair_mojibake(text):
+    """Best-effort repair for UTF-8 text decoded as Latin-1/CP1252."""
+    if not text:
+        return ""
+
+    for encoding in ("cp1252", "latin1"):
+        try:
+            return text.encode(encoding).decode("utf-8")
+        except (UnicodeEncodeError, UnicodeDecodeError):
+            continue
+
+    return text
