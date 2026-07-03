@@ -162,6 +162,22 @@
                   {% endfor %}
                 </select>
               </div>
+              <div class="form-group">
+                <label for="">Preferred Tokens:</label>
+                <select
+                  class="selectpicker w-auto form-control filter-select"
+                  id="token-select"
+                  data-selected-text-format="count"
+                  data-actions-box="true"
+                  data-live-search="true"
+                  multiple>
+                  {% for token in jobs | map(attribute="tokens") | sum(start=[]) | unique | list | sort %}
+                    <option value="{{ token }}">
+                      {{ token }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
             </form>
           </div>
         </div>
@@ -173,7 +189,8 @@
           data-seniority="{{ job.seniority }}"
           data-employment-type="{{ job.employmentType }}"
           data-function="{{ job.function }}"
-          data-industry='{{ job.industry | tojson }}'>
+          data-industry='{{ job.industry | tojson }}'
+          data-tokens='{{ job.tokens | tojson }}'>
           <div class="card-body">
             <div class="card-title">
               <a href="{{ job.link }}">
