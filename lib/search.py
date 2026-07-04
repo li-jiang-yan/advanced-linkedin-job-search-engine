@@ -49,17 +49,22 @@ def search_jobs(params):
     jobs = []
 
     start = 0
-    while start < number:
-        url = _build_search_url(query_string, start)
-        response = requests.get(url, headers=DEFAULT_HEADERS, timeout=30)
-        response.raise_for_status()
-
-        soup = BeautifulSoup(response.text, "html.parser")
-        for element in soup.find_all("li"):
-            job = _parse_job_html(element)
-            if job:
-                jobs.append(job)
-        start += len(soup.find_all("li"))
+    while len(jobs) < number:  # make sure we have parsed the given number of jobs
+        try:
+            url = _build_search_url(query_string, start)
+            response = requests.get(url, headers=DEFAULT_HEADERS, timeout=30)
+            response.raise_for_status()
+        except Exception as _:
+            # When we reached an exception (especially at requests.get), we
+            # simply increment start and try again
+            start += 1
+        else:
+            soup = BeautifulSoup(response.text, "html.parser")
+            for element in soup.find_all("li"):
+                job = _parse_job_html(element)
+                if job:
+                    jobs.append(job)
+            start += len(soup.find_all("li"))
 
     return jobs
 
