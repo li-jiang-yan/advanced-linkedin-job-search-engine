@@ -8,6 +8,7 @@ from urllib.parse import urlencode
 
 import requests
 from bs4 import BeautifulSoup
+from sklearn.feature_extraction.text import CountVectorizer
 
 LINKEDIN_SEARCH_URL = (
     "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search"
@@ -96,6 +97,7 @@ def _parse_job_html(soup):
         result["function"] = criteria["job function"]
         result["industry"] = re.split(r",(?=\S)", result["industry"])
         result["description"] = _clean_description(result["description"])
+        result["tokens"] = _tokenize(result["description"])
     except Exception as _:
         return None
     else:
@@ -150,3 +152,10 @@ def _repair_mojibake(text):
             continue
 
     return text
+
+
+def _tokenize(text):
+    """Converts a given text string to individual word tokens."""
+    vectorizer = CountVectorizer()
+    tokenizer = vectorizer.build_tokenizer()
+    return list(tokenizer(text))
