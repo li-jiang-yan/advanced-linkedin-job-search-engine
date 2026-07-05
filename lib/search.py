@@ -11,6 +11,11 @@ import requests
 from bs4 import BeautifulSoup
 from sklearn.feature_extraction.text import CountVectorizer
 
+try:
+    import ftfy
+except ImportError:  # pragma: no cover - optional dependency fallback
+    ftfy = None
+
 LINKEDIN_SEARCH_URL = (
     "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search"
 )
@@ -115,12 +120,13 @@ def _parse_job_html(soup):
 
 
 def _clean_description(description):
+    """Cleans the given description string to be optimized for NLP analysis."""
     if not description:
         return ""
 
     text = html.unescape(str(description))
     text = BeautifulSoup(text, "html.parser").get_text(" ")
-    text = _repair_mojibake(text)
+    text = _fix_text(text)
     text = unicodedata.normalize("NFKC", text)
     text = text.translate(
         str.maketrans(
@@ -150,10 +156,13 @@ def _clean_description(description):
     return text.lower()
 
 
-def _repair_mojibake(text):
-    """Best-effort repair for UTF-8 text decoded as Latin-1/CP1252."""
+def _fix_text(text):
+    """Fix mojibake and other text encoding issues when ftfy is available."""
     if not text:
         return ""
+
+    if ftfy is not None:
+        return ftfy.fix_text(text)
 
     for encoding in ("cp1252", "latin1"):
         try:
