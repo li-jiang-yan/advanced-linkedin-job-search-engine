@@ -6,6 +6,7 @@ import re
 import unicodedata
 from urllib.parse import urlencode
 
+import numpy as np
 import requests
 from bs4 import BeautifulSoup
 from sklearn.feature_extraction.text import CountVectorizer
@@ -66,7 +67,11 @@ def search_jobs(params):
                     jobs.append(job)
             start += len(soup.find_all("li"))
 
-    return jobs
+    features, similarities = _calculate_similarities(
+        [job["description"] for job in jobs]
+    )
+
+    return jobs, features, similarities
 
 
 def _build_search_url(query_string, start):
@@ -164,3 +169,28 @@ def _tokenize(text):
     vectorizer = CountVectorizer()
     tokenizer = vectorizer.build_tokenizer()
     return list(tokenizer(text))
+
+
+def _calculate_similarities(corpus):
+    """
+    Calculates the coexistence similarity matrix between different tokens
+    based on a given corpus.
+    """
+    # Fit CountVectorizer model and get feature names
+    vectorizer = CountVectorizer()
+    X = vectorizer.fit_transform(corpus)
+    features = vectorizer.get_feature_names_out()
+
+    # Matrix X counts the number of times each token is present in each
+    # job post, but the coexistence matrix is only interested in presence
+    # rather than frequency.
+    X = np.where(X.toarray() > 0, 1, 0)
+    print(f"{X.shape=}")
+
+    # Compute the coexistence similarity matrix
+    feature_totals = np.sum(X, axis=0)
+    similarities = X.T @ X / np.sqrt(np.outer(feature_totals, feature_totals))
+    print(f"{feature_totals.shape=}")
+    print(f"{similarities.shape=}")
+
+    return features.tolist(), similarities.tolist()

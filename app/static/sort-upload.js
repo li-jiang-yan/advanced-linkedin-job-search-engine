@@ -1,6 +1,5 @@
 const tokenFile = document.getElementById("token-file");
 const tokenButton = document.getElementById("token-button");
-const tokenSelect = document.getElementById("token-select");
 const tokenOptions = Array.from(tokenSelect.options);
 
 tokenFile.addEventListener("change", () => {
