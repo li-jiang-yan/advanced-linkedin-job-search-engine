@@ -16,7 +16,9 @@
       method="GET"
       class="mb-3">
       <div class="mb-3">
-        <label for="jobs-search-box-keyword-id" class="form-label">
+        <label
+          for="jobs-search-box-keyword-id"
+          class="form-label">
           <span class="visually-hidden">
             Search by title, skill, or company
           </span>
@@ -30,7 +32,9 @@
           value="{{ request.args.get('keywords', '') }}">
       </div>
       <div class="mb-3">
-        <label for="jobs-search-box-location-id" class="form-label">
+        <label
+          for="jobs-search-box-location-id"
+          class="form-label">
           <span class="visually-hidden">
             City, state, or zip code
           </span>
@@ -44,7 +48,9 @@
           value="{{ request.args.get('location', '') }}">
       </div>
       <div class="mb-3">
-        <label for="jobs-search-box-number-id" class="form-label">
+        <label
+          for="jobs-search-box-number-id"
+          class="form-label">
           <span class="visually-hidden">
             Number of searches
           </span>
@@ -58,7 +64,9 @@
           placeholder="Number of searches"
           value="{{ request.args.get('number', '25') }}"
           min="1">
-        <div id="numberHelp" class="form-text">
+        <div
+          id="numberHelp"
+          class="form-text">
           More time is needed to get and analyze more searches.
         </div>
       </div>
