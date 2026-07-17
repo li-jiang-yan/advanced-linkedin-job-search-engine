@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Advanced LinkedIn Job Search Engine</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 </head>
+
 <body>
 
   <div class="container my-3">
@@ -71,178 +73,178 @@
       class="mb-3"
       id="output">
       {% if jobs %}
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="card-title">
-              <strong>Options</strong>
-            </div>
-            <form action="">
-              <div class="form-group">
-                <label for="">Company:</label>
-                <select
-                  class="selectpicker w-auto form-control filter-select"
-                  id="company-select"
-                  data-selected-text-format="count"
-                  data-actions-box="true"
-                  data-live-search="true"
-                  multiple>
-                  {% for company in jobs | map(attribute="hiringOrganization.name") | unique | list | sort %}
-                    <option
-                      value="{{ company }}"
-                      selected="selected">
-                      {{ company }}
-                    </option>
-                  {% endfor %}
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="">Seniority level:</label>
-                <select
-                  class="selectpicker w-auto form-control filter-select"
-                  id="seniority-select"
-                  data-selected-text-format="count"
-                  data-actions-box="true"
-                  data-live-search="true"
-                  multiple>
-                  {% for seniority in jobs | map(attribute="seniority") | unique | list | sort %}
-                    <option
-                      value="{{ seniority }}"
-                      selected="selected">
-                      {{ seniority }}
-                    </option>
-                  {% endfor %}
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="">Employment type:</label>
-                <select
-                  class="selectpicker w-auto form-control filter-select"
-                  id="employment-type-select"
-                  data-selected-text-format="count"
-                  data-actions-box="true"
-                  data-live-search="true"
-                  multiple>
-                  {% for type in jobs | map(attribute="employmentType") | unique | list | sort %}
-                    <option
-                      value="{{ type }}"
-                      selected="selected">
-                      {{ type }}
-                    </option>
-                  {% endfor %}
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="">Job function:</label>
-                <select
-                  class="selectpicker w-auto form-control filter-select"
-                  id="function-select"
-                  data-selected-text-format="count"
-                  data-actions-box="true"
-                  data-live-search="true"
-                  multiple>
-                  {% for function in jobs | map(attribute="function") | unique | list | sort %}
-                    <option
-                      value="{{ function }}"
-                      selected="selected">
-                      {{ function }}
-                    </option>
-                  {% endfor %}
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="">Industries:</label>
-                <select
-                  class="selectpicker w-auto form-control filter-select"
-                  id="industry-select"
-                  data-selected-text-format="count"
-                  data-actions-box="true"
-                  data-live-search="true"
-                  multiple>
-                  {% for industry in jobs | map(attribute="industry") | sum(start=[]) | unique | list | sort %}
-                    <option
-                      value="{{ industry }}"
-                      selected="selected">
-                      {{ industry }}
-                    </option>
-                  {% endfor %}
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="">Preferred tokens:</label>
-                <select
-                  class="selectpicker w-auto form-control sort-select"
-                  id="token-select"
-                  data-selected-text-format="count"
-                  data-actions-box="true"
-                  data-live-search="true"
-                  multiple>
-                  {% for token in jobs | map(attribute="tokens") | sum(start=[]) | unique | list | sort %}
-                    <option value="{{ token }}">
-                      {{ token }}
-                    </option>
-                  {% endfor %}
-                </select>
-                <input
-                  aria-describedby="fileHelp"
-                  id="token-file"
-                  type="file">
-                <button
-                  type="button"
-                  class="btn btn-outline-dark btn-sm"
-                  id="token-button"
-                  disabled>
-                  Add tokens
-                </button>
-                <div id="fileHelp" class="form-text">
-                  You may upload a .txt file with all the desired tokens separated by <code>,</code> without spaces
-                </div>
-              </div>
-              <div
-                id="token-suggest"
-                data-features='{{ features | tojson }}'
-                data-similarities="{{ similarities | tojson }}">
-              </div>
-            </form>
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="card-title">
+            <strong>Options</strong>
           </div>
+          <form action="">
+            <div class="form-group">
+              <label for="">Company:</label>
+              <select
+                class="selectpicker w-auto form-control filter-select"
+                id="company-select"
+                data-selected-text-format="count"
+                data-actions-box="true"
+                data-live-search="true"
+                multiple>
+                {% for company in jobs | map(attribute="hiringOrganization.name") | unique | list | sort %}
+                <option
+                  value="{{ company }}"
+                  selected="selected">
+                  {{ company }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="">Seniority level:</label>
+              <select
+                class="selectpicker w-auto form-control filter-select"
+                id="seniority-select"
+                data-selected-text-format="count"
+                data-actions-box="true"
+                data-live-search="true"
+                multiple>
+                {% for seniority in jobs | map(attribute="seniority") | unique | list | sort %}
+                <option
+                  value="{{ seniority }}"
+                  selected="selected">
+                  {{ seniority }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="">Employment type:</label>
+              <select
+                class="selectpicker w-auto form-control filter-select"
+                id="employment-type-select"
+                data-selected-text-format="count"
+                data-actions-box="true"
+                data-live-search="true"
+                multiple>
+                {% for type in jobs | map(attribute="employmentType") | unique | list | sort %}
+                <option
+                  value="{{ type }}"
+                  selected="selected">
+                  {{ type }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="">Job function:</label>
+              <select
+                class="selectpicker w-auto form-control filter-select"
+                id="function-select"
+                data-selected-text-format="count"
+                data-actions-box="true"
+                data-live-search="true"
+                multiple>
+                {% for function in jobs | map(attribute="function") | unique | list | sort %}
+                <option
+                  value="{{ function }}"
+                  selected="selected">
+                  {{ function }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="">Industries:</label>
+              <select
+                class="selectpicker w-auto form-control filter-select"
+                id="industry-select"
+                data-selected-text-format="count"
+                data-actions-box="true"
+                data-live-search="true"
+                multiple>
+                {% for industry in jobs | map(attribute="industry") | sum(start=[]) | unique | list | sort %}
+                <option
+                  value="{{ industry }}"
+                  selected="selected">
+                  {{ industry }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="">Preferred tokens:</label>
+              <select
+                class="selectpicker w-auto form-control sort-select"
+                id="token-select"
+                data-selected-text-format="count"
+                data-actions-box="true"
+                data-live-search="true"
+                multiple>
+                {% for token in jobs | map(attribute="tokens") | sum(start=[]) | unique | list | sort %}
+                <option value="{{ token }}">
+                  {{ token }}
+                </option>
+                {% endfor %}
+              </select>
+              <input
+                aria-describedby="fileHelp"
+                id="token-file"
+                type="file">
+              <button
+                type="button"
+                class="btn btn-outline-dark btn-sm"
+                id="token-button"
+                disabled>
+                Add tokens
+              </button>
+              <div id="fileHelp" class="form-text">
+                You may upload a .txt file with all the desired tokens separated by <code>,</code> without spaces
+              </div>
+            </div>
+            <div
+              id="token-suggest"
+              data-features='{{ features | tojson }}'
+              data-similarities="{{ similarities | tojson }}">
+            </div>
+          </form>
         </div>
+      </div>
       {% endif %}
       <div id="output-jobs">
         {% for job in jobs %}
-          <div
-            class="card mb-3 job-card"
-            data-company="{{ job.hiringOrganization.name }}"
-            data-seniority="{{ job.seniority }}"
-            data-employment-type="{{ job.employmentType }}"
-            data-function="{{ job.function }}"
-            data-industry='{{ job.industry | tojson }}'
-            data-tokens='{{ job.tokens | tojson }}'>
-            <div class="card-body">
-              <div class="card-title">
-                <a href="{{ job.link }}">
-                  <strong>{{ job.title }}</strong>
-                </a>
-              </div>
-              <div class="card-subtitle mb-2 text-muted">
-                <strong>{{ job.hiringOrganization.name }}</strong>
-              </div>
-              <div class="card-text">
-                <strong>Date posted:</strong> {{ job.datePosted }}
-              </div>
-              <div class="card-text">
-                <strong>Seniority level:</strong> {{ job.seniority }}
-              </div>
-              <div class="card-text">
-                <strong>Employment type:</strong> {{ job.employmentType }}
-              </div>
-              <div class="card-text">
-                <strong>Job function:</strong> {{ job.function }}
-              </div>
-              <div class="card-text">
-                <strong>Industries:</strong> {{ job.industry }}
-              </div>
-              <div class="card-text token-list"></div>
+        <div
+          class="card mb-3 job-card"
+          data-company="{{ job.hiringOrganization.name }}"
+          data-seniority="{{ job.seniority }}"
+          data-employment-type="{{ job.employmentType }}"
+          data-function="{{ job.function }}"
+          data-industry='{{ job.industry | tojson }}'
+          data-tokens='{{ job.tokens | tojson }}'>
+          <div class="card-body">
+            <div class="card-title">
+              <a href="{{ job.link }}">
+                <strong>{{ job.title }}</strong>
+              </a>
             </div>
+            <div class="card-subtitle mb-2 text-muted">
+              <strong>{{ job.hiringOrganization.name }}</strong>
+            </div>
+            <div class="card-text">
+              <strong>Date posted:</strong> {{ job.datePosted }}
+            </div>
+            <div class="card-text">
+              <strong>Seniority level:</strong> {{ job.seniority }}
+            </div>
+            <div class="card-text">
+              <strong>Employment type:</strong> {{ job.employmentType }}
+            </div>
+            <div class="card-text">
+              <strong>Job function:</strong> {{ job.function }}
+            </div>
+            <div class="card-text">
+              <strong>Industries:</strong> {{ job.industry }}
+            </div>
+            <div class="card-text token-list"></div>
           </div>
+        </div>
         {% endfor %}
       </div>
     </div>
@@ -263,4 +265,5 @@
   <script src="static/spinner.js"></script>
 
 </body>
+
 </html>
