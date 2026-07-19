@@ -76,7 +76,13 @@ def search_jobs(params):
         [job["description"] for job in jobs]
     )
 
-    return jobs, features, similarities
+    result = {
+        "jobs": jobs,
+        "features": features,
+        "similarities": similarities,
+    }
+
+    return result
 
 
 def _build_search_url(query_string, start):
@@ -194,12 +200,9 @@ def _calculate_similarities(corpus):
     # job post, but the coexistence matrix is only interested in presence
     # rather than frequency.
     X = np.where(X.toarray() > 0, 1, 0)
-    print(f"{X.shape=}")
 
     # Compute the coexistence similarity matrix
     feature_totals = np.sum(X, axis=0)
     similarities = X.T @ X / np.sqrt(np.outer(feature_totals, feature_totals))
-    print(f"{feature_totals.shape=}")
-    print(f"{similarities.shape=}")
 
     return features.tolist(), similarities.tolist()
