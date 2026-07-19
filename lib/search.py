@@ -4,6 +4,7 @@ import html
 import json
 import re
 import unicodedata
+from concurrent.futures import ThreadPoolExecutor
 from urllib.parse import urlencode
 
 import numpy as np
@@ -45,6 +46,7 @@ _BOILERPLATE_PHRASES = (
 )
 
 _WORD_FIXES = ((r"\bdisterent\b", "different"),)
+_DETAIL_FETCH_WORKERS = 8
 
 
 def search_jobs(params):
@@ -66,11 +68,17 @@ def search_jobs(params):
             start += 1
         else:
             soup = BeautifulSoup(response.text, "html.parser")
-            for element in soup.find_all("li"):
-                job = _parse_job_html(element)
-                if job:
-                    jobs.append(job)
-            start += len(soup.find_all("li"))
+            page_jobs = soup.find_all("li")
+            with ThreadPoolExecutor(max_workers=_DETAIL_FETCH_WORKERS) as executor:
+                parsed_jobs = [
+                    parsed_job
+                    for parsed_job in executor.map(_parse_job_html, page_jobs)
+                    if parsed_job
+                ]
+            jobs.extend(parsed_jobs)
+            start += len(page_jobs)
+
+    jobs = jobs[:number]
 
     features, similarities = _calculate_similarities(
         [job["description"] for job in jobs]
