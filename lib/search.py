@@ -76,7 +76,13 @@ def search_jobs(params):
         [job["description"] for job in jobs]
     )
 
-    return jobs, features, similarities
+    result = {
+        "jobs": jobs,
+        "features": features,
+        "similarities": similarities,
+    }
+
+    return result
 
 
 def _build_search_url(query_string, start):
