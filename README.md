@@ -8,22 +8,32 @@ Advanced LinkedIn Job Search Engine is a Flask application for searching LinkedI
 job listings with a cleaner workflow and a structure that makes it easier to add
 filters, sorting, and other search improvements over time.
 
-## Prerequisites
+## Using compiled binary (Windows only)
+
+Download `advanced-linkedin-job-search-engine.exe` and run the following in your terminal:
+
+```
+.\advanced-linkedin-job-search-engine
+```
+
+## From source code
+
+### Prerequisites
 
 - **Python 3.11 or newer**. The project is developed and tested with Python 3.11.
 - **Git**
 - **pip**
 
-## Setup
+### Setup
 
-### 1. Clone the repository
+#### 1. Clone the repository
 
 ```bash
 git clone git@github.com:li-jiang-yan/advanced-linkedin-job-search-engine.git
 cd advanced-linkedin-job-search-engine
 ```
 
-### 2. Create a virtual environment
+#### 2. Create a virtual environment
 
 **Windows (PowerShell):**
 
@@ -39,7 +49,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install dependencies
+#### 3. Install dependencies
 
 Runtime dependencies only:
 
