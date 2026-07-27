@@ -10,3 +10,6 @@ pre-commit
 ruff==0.15.15
 flake8==7.3.0
 pylint==4.0.3
+
+# Packaging
+pyinstaller==6.21.0
