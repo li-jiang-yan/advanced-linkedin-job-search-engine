@@ -22,7 +22,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='app',
+    name='advanced-linkedin-job-search-engine',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,

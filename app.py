@@ -1,6 +1,9 @@
+from waitress import serve
+
 from app import create_app
 
 if __name__ == "__main__":
-    print("Starting Flask app... this might take a while")
+    print(" * Running on http://127.0.0.1:5000")
+    print("Press CTRL+C to quit")
     myapp = create_app()
-    myapp.run()
+    serve(myapp, host="127.0.0.1", port=5000)

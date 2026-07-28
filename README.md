@@ -12,7 +12,7 @@ filters, sorting, and other search improvements over time.
 
 Download `advanced-linkedin-job-search-engine.exe` and run the following in your terminal:
 
-```
+```bash
 .\advanced-linkedin-job-search-engine
 ```
 
