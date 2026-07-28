@@ -60,3 +60,8 @@ requesting review.
 
 - Development dependencies are listed in `requirements-dev.txt`.
 - The CI workflow lives in [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
+
+## Compiling the Binary
+```powershell
+pyinstaller --onefile --add-data "app/templates:app/templates" --add-data "app/static:app/static" --name "advanced-linkedin-job-search-engine" app.py
+```
