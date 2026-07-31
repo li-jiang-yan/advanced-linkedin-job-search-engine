@@ -63,5 +63,5 @@ requesting review.
 
 ## Compiling the Binary
 ```powershell
-pyinstaller --onefile --add-data "app/templates:app/templates" --add-data "app/static:app/static" --name "advanced-linkedin-job-search-engine" app.py
+pyinstaller --onefile --add-data "app/templates:app/templates" --add-data "app/static:app/static" --name "advanced-linkedin-job-search-engine" --icon="InBug-Black.png" app.py
 ```
