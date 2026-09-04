@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>LinkedIn Job Finder</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+    crossorigin="anonymous">
+</head>
+
+<body>
+
+  <div class="container my-3">
+    <h1>LinkedIn Job Finder</h1>
+    <div class="mb-3">
+      <label
+        for="jobs-search-box-keyword-id"
+        class="form-label">
+        <span class="visually-hidden">
+          Search by title, skill, or company
+        </span>
+      </label>
+      <input
+        type="text"
+        name="keywords"
+        class="form-control"
+        id="jobs-search-box-keyword-id"
+        placeholder="Title, skill or company">
+    </div>
+    <div class="mb-3">
+      <label
+        for="jobs-search-box-location-id"
+        class="form-label">
+        <span class="visually-hidden">
+          City, state, or zip code
+        </span>
+      </label>
+      <input
+        type="text"
+        name="location"
+        class="form-control"
+        id="jobs-search-box-location-id"
+        placeholder="City, state, or zip code">
+    </div>
+    <div class="mb-3">
+      <label
+        for="jobs-search-box-token-id"
+        class="form-label">
+        <span class="visually-hidden">
+          Preferred tokens
+        </span>
+      </label>
+      <input
+        aria-describedby="fileHelp"
+        type="file"
+        name="token"
+        id="token-file">
+      <button
+        type="button"
+        class="btn btn-outline-dark btn-sm"
+        id="token-button"
+        disabled>
+        Add tokens
+      </button>
+      <div
+        id="token-output">
+        <div
+          id="fileHelp"
+          class="form-text">
+          You may upload a .txt file with all the desired tokens separated by <code>,</code> without spaces
+        </div>
+      </div>
+    </div>
+    <button
+      type="button"
+      class="btn btn-success mb-3"
+      id="play-button"
+      disabled>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-play-fill"
+        viewBox="0 0 16 16">
+        <path
+          d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393">
+        </path>
+      </svg>
+      Find Jobs
+    </button>
+    <div
+      class="mb-3"
+      id="output-div">
+    </div>
+    <footer class="mb-3 border-top">
+      <p class="mb-3 text-center text-body-secondary">
+        Made with &#10084; by JY<br>Most importantly, keep learning =)
+      </p>
+    </footer>
+  </div>
+
+  <script
+    src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+  </script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous">
+  </script>
+  <script
+    type="module"
+    src="static/script.js">
+  </script>
+
+</body>
+
+</html>
