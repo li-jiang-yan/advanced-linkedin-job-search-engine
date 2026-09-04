@@ -65,3 +65,6 @@ requesting review.
 ```powershell
 pyinstaller --onefile --add-data "app/templates:app/templates" --add-data "app/static:app/static" --name "advanced-linkedin-job-search-engine" --icon="InBug-Black.png" app.py
 ```
+```powershell
+pyinstaller --onefile --add-data "finderapp/templates:finderapp/templates" --add-data "finderapp/static:finderapp/static" --name "linkedin-job-finder" --icon="InBug-Black.png" finderapp.py
+```
